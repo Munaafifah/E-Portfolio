@@ -1,22 +1,14 @@
-// typed heading effect
-const phrases = ["Building software", "from the circuit", "to the cloud."];
-const el = document.getElementById('typedHeading');
+// mobile nav toggle
+const toggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('navMobile');
 
-function typeLine(lines, lineIndex, charIndex, done){
-  if(lineIndex >= lines.length){ done && done(); return; }
-  const current = lines.slice(0, lineIndex).join('<br>') +
-    (lineIndex > 0 ? '<br>' : '') +
-    lines[lineIndex].slice(0, charIndex);
-  el.innerHTML = current;
-  if(charIndex < lines[lineIndex].length){
-    setTimeout(() => typeLine(lines, lineIndex, charIndex + 1, done), 32);
-  } else {
-    setTimeout(() => typeLine(lines, lineIndex + 1, 0, done), 220);
-  }
-}
-
-if(el){
-  typeLine(phrases, 0, 0);
+if(toggle && mobileMenu){
+  toggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
 }
 
 // scroll reveal
@@ -32,20 +24,7 @@ const observer = new IntersectionObserver((entries) => {
 
 revealTargets.forEach(s => {
   s.style.opacity = 0;
-  s.style.transform = 'translateY(24px)';
-  s.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+  s.style.transform = 'translateY(20px)';
+  s.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   observer.observe(s);
-});
-
-// subtle tilt on project cards
-document.querySelectorAll('.tilt').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(600px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-8px)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
 });
