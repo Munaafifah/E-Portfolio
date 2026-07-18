@@ -186,6 +186,13 @@ section{padding:100px 0;}
 .research-box h3{font-size:21px; margin-bottom:10px;}
 .research-box p{color:var(--ink-soft); font-size:15px; margin-bottom:10px;}
 .journal{font-size:13px; font-weight:700;}
+.paper-link{
+  display:inline-flex; align-items:center; gap:6px; margin-top:14px;
+  font-size:13.5px; font-weight:700; color:var(--ink);
+  border-bottom:1.5px solid var(--ink); padding-bottom:2px;
+  transition:gap 0.2s ease;
+}
+.paper-link:hover{gap:10px;}
 @media(max-width:640px){.research-box{flex-direction:column;}}
 
 /* FOOTER */
