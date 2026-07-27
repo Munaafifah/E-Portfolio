@@ -148,8 +148,8 @@ section{padding:100px 0;}
 @media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
 
 /* SKILLS */
-.skill-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-.skill-card{padding:34px;}
+.skill-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:22px;}
+.skill-card{padding:34px; flex:1 1 320px; max-width:360px;}
 .skill-card:hover{transform:translateY(-6px);}
 .skill-card h3{font-size:19px; margin-bottom:18px;}
 .tags{display:flex; flex-wrap:wrap; gap:10px;}
@@ -159,8 +159,7 @@ section{padding:100px 0;}
   display:inline-flex; align-items:center; gap:8px;
 }
 .tag-logo{width:18px; height:18px; object-fit:contain; flex-shrink:0;}
-@media(max-width:1000px){.skill-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.skill-grid{grid-template-columns:1fr;}}
+@media(max-width:640px){.skill-card{flex:1 1 100%; max-width:100%;}}
 
 /* EXPERIENCE */
 .timeline{display:flex; flex-direction:column; gap:18px;}
