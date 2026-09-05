@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WellCheck — Case Study | Muna Afifah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="blob blob-mint"></div>
+<div class="blob blob-lav"></div>
+<div class="blob blob-peach"></div>
+
+<nav>
+  <div class="nav-pill wrap">
+    <div class="nav-brand">Muna Afifah</div>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+    </div>
+    <a href="index.html#contact" class="btn btn-dark nav-cta">Contact</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html#about">About</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="cs-hero">
+  <div class="wrap">
+    <a href="index.html#projects" class="cs-back">&larr; Back to projects</a>
+    <div class="cs-tagline">Case Study &middot; Healthcare</div>
+    <h1 class="cs-title">WellCheck: bridging Malaysia's rural&ndash;urban healthcare gap with sensors, sync, and AI.</h1>
+    <p class="cs-lede">A cross-platform health monitoring system pairing a Spring Boot web app and a Flutter mobile app on a shared MongoDB Atlas database, built around real-time Arduino sensor data and an AI-assisted disease prediction API.</p>
+    <div class="cs-cta-row">
+      <a href="https://wellcheck-springboot-b9fmadb2aqetdgcw.eastasia-01.azurewebsites.net" target="_blank" rel="noopener" class="btn btn-dark">View Live Demo</a>
+      <a href="wellcheck.pdf" target="_blank" rel="noopener" class="btn btn-outline">Read the Paper (IJIC)</a>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>The problem</h2>
+    <div class="cs-two-col">
+      <div class="card card-cream cs-list">
+        <h3>Why existing platforms fall short</h3>
+        <ul>
+          <li>Rural residents in Malaysia travel an average of 43 minutes to reach a hospital, versus 28 minutes for urban residents &mdash; a gap that routine monitoring could close.</li>
+          <li>MySejahtera operates as a mobile-only app, locking out anyone who relies on a desktop.</li>
+          <li>MyHealth360 offers both web and mobile, but features are inconsistent across the two &mdash; a fragmented experience.</li>
+          <li>Neither platform captures real-time vital signs through sensors, or offers AI-assisted diagnostic support.</li>
+        </ul>
+      </div>
+      <div class="card card-mint cs-list">
+        <h3>What WellCheck set out to do</h3>
+        <ul>
+          <li>Give patients one system, on any device, to track vitals and manage appointments.</li>
+          <li>Automatically capture heart rate, temperature, oxygen saturation, and ECG through wearable Arduino sensors.</li>
+          <li>Support five distinct roles &mdash; Patient, Doctor, Pharmacist, Clinic Assistant, Administrator &mdash; each with a tailored view.</li>
+          <li>Add an AI disease-prediction layer so providers get diagnostic support, not just raw numbers.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Architecture</h2>
+    <div class="cs-two-col">
+      <div class="card card-sky cs-arch-flow" style="padding:30px;">
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">Flutter mobile app (MVVM)</div>
+            <div class="step-sub">Patient-facing sensor readings &amp; appointments</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">&darr; synced via &darr;</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">MongoDB Atlas</div>
+            <div class="step-sub">Shared cloud database, real-time sync</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">&uarr; synced via &uarr;</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">Spring Boot + Thymeleaf (MVC)</div>
+            <div class="step-sub">Web dashboard for doctors, pharmacists, admins</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">calls out to</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">Django AI prediction API</div>
+            <div class="step-sub">Disease-risk inference from patient data</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-peach cs-list">
+        <h3>Why this shape</h3>
+        <ul>
+          <li>Web and mobile stay independent in framework (MVC vs. MVVM) but share one source of truth in MongoDB Atlas, so a doctor's update reaches the patient's phone without a separate sync layer.</li>
+          <li>Arduino hardware handles the sensing; a Node.js/Express layer exposes that data as a RESTful API to the mobile app.</li>
+          <li>The Django prediction API is kept separate from the core CRUD backend, so the AI model can be retrained or swapped without touching appointment or billing logic.</li>
+          <li>Stripe handles payment processing for consultations and prescriptions, consolidated into the same role-based system.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Methodology &amp; validation</h2>
+    <div class="rule-grid">
+      <div class="card card-cream rule-card">
+        <h3>DSDM, four sprints</h3>
+        <p>Development followed the Dynamic Systems Development Method across four iterative sprints &mdash; user management, health monitoring, appointment management, and financial management &mdash; matching the academic semester timeline while keeping stakeholder feedback continuous.</p>
+      </div>
+      <div class="card card-cream rule-card">
+        <h3>Black-box testing</h3>
+        <p>17 test cases across five modules (User, Health Monitoring, Appointment, Financial, Sensor Management) were run without reference to internal code structure. All 17 returned a pass.</p>
+      </div>
+      <div class="card card-cream rule-card">
+        <h3>User Acceptance Testing</h3>
+        <p>42 UAT cases were conducted with a real clinic stakeholder across all five user roles, confirming the system met real-world healthcare workflow expectations. All 42 passed.</p>
+      </div>
+      <div class="card card-cream rule-card">
+        <h3>Published research</h3>
+        <p>The system and its evaluation are documented in a peer-reviewed paper in the International Journal of Innovative Computing (IJIC), co-authored with academic supervision.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Tech stack</h2>
+    <div class="card card-lav" style="padding:30px;">
+      <div class="stack-tags">
+        <span>Spring Boot</span><span>Thymeleaf</span><span>Flutter</span><span>Node.js / Express</span>
+        <span>MongoDB Atlas</span><span>Arduino</span><span>Django</span><span>Python</span>
+        <span>Stripe</span><span>Git &amp; GitHub</span><span>Enterprise Architect</span><span>JIRA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="card card-butter contact-card">
+      <div class="section-label" style="justify-content:center; display:flex;">Next</div>
+      <h2>Curious about the rest?</h2>
+      <p class="lede">See more projects or get in touch directly.</p>
+      <div class="contact-links">
+        <a href="index.html#projects" class="btn btn-dark">Back to Projects</a>
+        <a href="mailto:munaafifah@graduate.utm.my" class="btn btn-outline">munaafifah@graduate.utm.my</a>
+      </div>
+    </div>
+    <div class="foot-note">&copy; 2026 Muna Afifah Binti Mahathir &mdash; Selangor, Malaysia</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

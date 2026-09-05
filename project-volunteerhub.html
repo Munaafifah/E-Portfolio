@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VolunteerHub — Case Study | Muna Afifah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="blob blob-mint"></div>
+<div class="blob blob-lav"></div>
+<div class="blob blob-peach"></div>
+
+<nav>
+  <div class="nav-pill wrap">
+    <div class="nav-brand">Muna Afifah</div>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+    </div>
+    <a href="index.html#contact" class="btn btn-dark nav-cta">Contact</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html#about">About</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="cs-hero">
+  <div class="wrap">
+    <a href="index.html#projects" class="cs-back">&larr; Back to projects</a>
+    <div class="cs-tagline">Case Study &middot; Civic Tech</div>
+    <h1 class="cs-title">VolunteerHub: uniting organizations and volunteers around activities that actually fill up correctly.</h1>
+    <p class="cs-lede">A volunteer activity registration system built on a layered Spring Boot API and a React frontend, designed around one core problem: keeping registrations accurate when capacity, deadlines, and duplicate sign-ups are all in play.</p>
+    <div class="cs-cta-row">
+      <a href="https://volunteerhub-d6ghhxhrbrbbb7gg.eastasia-01.azurewebsites.net/" target="_blank" rel="noopener" class="btn btn-dark">View Live Demo</a>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>The problem</h2>
+    <div class="cs-two-col">
+      <div class="card card-cream cs-list">
+        <h3>What was missing</h3>
+        <ul>
+          <li>Organizations had no simple way to post volunteer activities for people to discover.</li>
+          <li>Volunteers needed an easy way to browse, filter, and join activities without back-and-forth.</li>
+          <li>Nothing stopped a volunteer from registering twice for the same activity.</li>
+          <li>Activities could silently overfill past their intended capacity.</li>
+          <li>Admins had no clear view of who had actually signed up.</li>
+        </ul>
+      </div>
+      <div class="card card-sky cs-list">
+        <h3>Scope &mdash; two roles</h3>
+        <ul>
+          <li><strong>Volunteer:</strong> browse activities, search and filter, register, cancel a registration, view their own sign-ups.</li>
+          <li><strong>Admin:</strong> full CRUD over activities, visibility into all registrations across the platform, and access to reporting.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Architecture</h2>
+    <div class="cs-two-col">
+      <div class="card card-lav cs-arch-flow" style="padding:30px;">
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">React frontend (Vite)</div>
+            <div class="step-sub">Browser client</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">&darr; HTTPS + JWT &darr;</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">Controller</div>
+            <div class="step-sub">Receives HTTP requests &mdash; Spring Boot API, port 8082</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">&darr;</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">Service</div>
+            <div class="step-sub">Business logic &amp; validation</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">&darr;</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">Repository</div>
+            <div class="step-sub">MongoDB data access</div>
+          </div>
+        </div>
+        <div class="cs-arch-arrow">&darr; Spring Data MongoDB &darr;</div>
+        <div class="cs-arch-step card-cream">
+          <div>
+            <div class="step-label">MongoDB</div>
+            <div class="step-sub">Document database</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-peach cs-list">
+        <h3>Why a layered backend</h3>
+        <ul>
+          <li>Keeps things organized: controllers only handle HTTP, services only handle rules, repositories only handle data.</li>
+          <li>Easier to test and fix &mdash; each layer can be checked in isolation before wiring the next one in.</li>
+          <li>Matches the standard Spring Boot convention, so the codebase is easy for another developer to pick up.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Business rules</h2>
+    <div class="rule-grid">
+      <div class="card card-mint rule-card">
+        <h3>No duplicate registration</h3>
+        <p>A user can't register twice for the same activity.</p>
+      </div>
+      <div class="card card-sky rule-card">
+        <h3>Deadline check</h3>
+        <p>Registration is blocked once the activity's registration deadline has passed.</p>
+      </div>
+      <div class="card card-butter rule-card">
+        <h3>Capacity check</h3>
+        <p>Once an activity hits its capacity, no further registrations are accepted.</p>
+      </div>
+      <div class="card card-blush rule-card">
+        <h3>Save &amp; increment</h3>
+        <p>Once all checks pass, the registration is saved and the activity's registered count is incremented by one &mdash; keeping counts and reality in sync.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Reporting with MongoDB aggregation</h2>
+    <div class="card card-cream cs-list">
+      <h3>"Most popular activities" pipeline</h3>
+      <ul>
+        <li><strong>$match</strong> &mdash; keep only registrations with status "REGISTERED", ignoring cancelled ones.</li>
+        <li><strong>$group</strong> &mdash; group by activity and count how many registrations each one has.</li>
+        <li><strong>$sort</strong> &mdash; order activities from most to least registrations.</li>
+        <li><strong>$limit</strong> &mdash; keep only the top N, e.g. the top 5.</li>
+        <li><strong>$lookup</strong> &mdash; join in each activity's details (title, category) so the report shows real names instead of raw IDs.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section">
+  <div class="wrap">
+    <h2>Tech stack</h2>
+    <div class="card card-lav" style="padding:30px;">
+      <div class="stack-tags">
+        <span>React (Vite)</span><span>Spring Boot</span><span>Java</span>
+        <span>MongoDB</span><span>Spring Data MongoDB</span><span>JWT Auth</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="card card-butter contact-card">
+      <div class="section-label" style="justify-content:center; display:flex;">Next</div>
+      <h2>Curious about the rest?</h2>
+      <p class="lede">See more projects or get in touch directly.</p>
+      <div class="contact-links">
+        <a href="index.html#projects" class="btn btn-dark">Back to Projects</a>
+        <a href="mailto:munaafifah@graduate.utm.my" class="btn btn-outline">munaafifah@graduate.utm.my</a>
+      </div>
+    </div>
+    <div class="foot-note">&copy; 2026 Muna Afifah Binti Mahathir &mdash; Selangor, Malaysia</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
