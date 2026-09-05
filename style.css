@@ -176,16 +176,14 @@ section{padding:100px 0;}
 .project-num{font-size:13px; font-weight:700; opacity:0.5;}
 .project-card h3{font-size:19px;}
 .project-card p{font-size:14.5px; color:var(--ink-soft); flex-grow:1;}
-.project-links{display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;}
+.project-links{display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; justify-content:center;}
 .project-links a{
   font-size:13px; font-weight:700; padding:9px 16px; border-radius:100px;
   display:inline-flex; align-items:center; gap:6px;
   transition:transform 0.2s ease, background 0.2s ease;
+  background:var(--ink); color:#39ff14;
 }
-.link-case{background:rgba(38,36,31,0.08); color:var(--ink);}
-.link-case:hover{background:rgba(38,36,31,0.16); transform:translateY(-2px);}
-.link-live{background:var(--ink); color:var(--cream);}
-.link-live:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(38,36,31,0.25);}
+.project-links a:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(38,36,31,0.25);}
 @media(max-width:900px){.project-grid{grid-template-columns:1fr;}}
 
 /* RESEARCH */
