@@ -52,84 +52,89 @@
   </div>
 </section>
 
-<section class="cs-section">
+<section class="cs-section compact">
   <div class="wrap">
     <h2>The problem</h2>
     <div class="cs-two-col">
       <div class="card card-cream cs-list">
         <h3>What was missing</h3>
         <ul>
-          <li>Organizations had no simple way to post volunteer activities for people to discover.</li>
-          <li>Volunteers needed an easy way to browse, filter, and join activities without back-and-forth.</li>
-          <li>Nothing stopped a volunteer from registering twice for the same activity.</li>
-          <li>Activities could silently overfill past their intended capacity.</li>
-          <li>Admins had no clear view of who had actually signed up.</li>
+          <li>No simple way for organizations to post activities or for volunteers to browse and join them.</li>
+          <li>Nothing stopped duplicate sign-ups or activities silently overfilling past capacity.</li>
+          <li>Admins had no clear view of who had actually registered.</li>
         </ul>
       </div>
       <div class="card card-sky cs-list">
         <h3>Scope &mdash; two roles</h3>
         <ul>
-          <li><strong>Volunteer:</strong> browse activities, search and filter, register, cancel a registration, view their own sign-ups.</li>
-          <li><strong>Admin:</strong> full CRUD over activities, visibility into all registrations across the platform, and access to reporting.</li>
+          <li><strong>Volunteer:</strong> browse, search/filter, register, cancel, view own registrations.</li>
+          <li><strong>Admin:</strong> full CRUD on activities, view all registrations, view reports.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cs-section">
+<section class="cs-section compact">
   <div class="wrap">
     <h2>Architecture</h2>
     <div class="cs-two-col">
-      <div class="card card-lav cs-arch-flow" style="padding:30px;">
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">React frontend (Vite)</div>
-            <div class="step-sub">Browser client</div>
+      <div class="card card-lav" style="padding:30px 20px;">
+        <div class="arch-diagram">
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">React Frontend (Vite)</div>
+              <div class="arch-sub">Browser client</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">&darr; HTTPS + JWT &darr;</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">Controller</div>
-            <div class="step-sub">Receives HTTP requests &mdash; Spring Boot API, port 8082</div>
+          <div class="arch-connector"><span class="connector-label">HTTPS + JWT</span></div>
+          <div class="arch-node">
+            <div class="arch-icon">⚙️</div>
+            <div class="arch-text">
+              <div class="arch-label">Controller</div>
+              <div class="arch-sub">Spring Boot API &middot; port 8082</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">&darr;</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">Service</div>
-            <div class="step-sub">Business logic &amp; validation</div>
+          <div class="arch-connector"></div>
+          <div class="arch-node">
+            <div class="arch-icon">🧩</div>
+            <div class="arch-text">
+              <div class="arch-label">Service</div>
+              <div class="arch-sub">Business logic &amp; validation</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">&darr;</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">Repository</div>
-            <div class="step-sub">MongoDB data access</div>
+          <div class="arch-connector"></div>
+          <div class="arch-node">
+            <div class="arch-icon">🗄️</div>
+            <div class="arch-text">
+              <div class="arch-label">Repository</div>
+              <div class="arch-sub">MongoDB data access</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">&darr; Spring Data MongoDB &darr;</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">MongoDB</div>
-            <div class="step-sub">Document database</div>
+          <div class="arch-connector"><span class="connector-label">Spring Data MongoDB</span></div>
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">MongoDB</div>
+              <div class="arch-sub">Document database</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="card card-peach cs-list">
         <h3>Why a layered backend</h3>
         <ul>
-          <li>Keeps things organized: controllers only handle HTTP, services only handle rules, repositories only handle data.</li>
-          <li>Easier to test and fix &mdash; each layer can be checked in isolation before wiring the next one in.</li>
-          <li>Matches the standard Spring Boot convention, so the codebase is easy for another developer to pick up.</li>
+          <li>Controllers only handle HTTP, services only handle rules, repositories only handle data.</li>
+          <li>Each layer can be tested and fixed in isolation.</li>
+          <li>Matches standard Spring Boot convention &mdash; easy for another developer to pick up.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cs-section">
+<section class="cs-section compact">
   <div class="wrap">
     <h2>Business rules</h2>
     <div class="rule-grid">
@@ -139,43 +144,31 @@
       </div>
       <div class="card card-sky rule-card">
         <h3>Deadline check</h3>
-        <p>Registration is blocked once the activity's registration deadline has passed.</p>
+        <p>Registration is blocked once the registration deadline has passed.</p>
       </div>
       <div class="card card-butter rule-card">
         <h3>Capacity check</h3>
-        <p>Once an activity hits its capacity, no further registrations are accepted.</p>
+        <p>No further registrations once an activity hits capacity.</p>
       </div>
       <div class="card card-blush rule-card">
         <h3>Save &amp; increment</h3>
-        <p>Once all checks pass, the registration is saved and the activity's registered count is incremented by one &mdash; keeping counts and reality in sync.</p>
+        <p>Once checks pass, the registration saves and the activity's count goes up by one.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cs-section">
-  <div class="wrap">
-    <h2>Reporting with MongoDB aggregation</h2>
-    <div class="card card-cream cs-list">
-      <h3>"Most popular activities" pipeline</h3>
-      <ul>
-        <li><strong>$match</strong> &mdash; keep only registrations with status "REGISTERED", ignoring cancelled ones.</li>
-        <li><strong>$group</strong> &mdash; group by activity and count how many registrations each one has.</li>
-        <li><strong>$sort</strong> &mdash; order activities from most to least registrations.</li>
-        <li><strong>$limit</strong> &mdash; keep only the top N, e.g. the top 5.</li>
-        <li><strong>$lookup</strong> &mdash; join in each activity's details (title, category) so the report shows real names instead of raw IDs.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="cs-section">
+<section class="cs-section compact">
   <div class="wrap">
     <h2>Tech stack</h2>
-    <div class="card card-lav" style="padding:30px;">
+    <div class="card card-lav" style="padding:26px;">
       <div class="stack-tags">
-        <span>React (Vite)</span><span>Spring Boot</span><span>Java</span>
-        <span>MongoDB</span><span>Spring Data MongoDB</span><span>JWT Auth</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="" class="tag-logo">React</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" alt="" class="tag-logo">Vite</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="" class="tag-logo">Spring Boot</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" class="tag-logo">Java</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="" class="tag-logo">MongoDB</span>
+        <span><img src="https://cdn.simpleicons.org/jsonwebtokens/000000" alt="" class="tag-logo">JWT Auth</span>
       </div>
     </div>
   </div>
