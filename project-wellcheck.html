@@ -83,32 +83,38 @@
   <div class="wrap">
     <h2>Architecture</h2>
     <div class="cs-two-col">
-      <div class="card card-sky cs-arch-flow" style="padding:30px;">
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">Flutter mobile app (MVVM)</div>
-            <div class="step-sub">Patient-facing sensor readings &amp; appointments</div>
+      <div class="card card-sky" style="padding:34px 20px;">
+        <div class="arch-diagram">
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">Flutter Mobile App (MVVM)</div>
+              <div class="arch-sub">Patient-facing sensor readings &amp; appointments</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">&darr; synced via &darr;</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">MongoDB Atlas</div>
-            <div class="step-sub">Shared cloud database, real-time sync</div>
+          <div class="arch-connector"><span class="connector-label">synced via</span></div>
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">MongoDB Atlas</div>
+              <div class="arch-sub">Shared cloud database, real-time sync</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">&uarr; synced via &uarr;</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">Spring Boot + Thymeleaf (MVC)</div>
-            <div class="step-sub">Web dashboard for doctors, pharmacists, admins</div>
+          <div class="arch-connector"><span class="connector-label">synced via</span></div>
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">Spring Boot + Thymeleaf (MVC)</div>
+              <div class="arch-sub">Web dashboard for doctors, pharmacists, admins</div>
+            </div>
           </div>
-        </div>
-        <div class="cs-arch-arrow">calls out to</div>
-        <div class="cs-arch-step card-cream">
-          <div>
-            <div class="step-label">Django AI prediction API</div>
-            <div class="step-sub">Disease-risk inference from patient data</div>
+          <div class="arch-connector"><span class="connector-label">calls out to</span></div>
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">Django AI Prediction API</div>
+              <div class="arch-sub">Disease-risk inference from patient data</div>
+            </div>
           </div>
         </div>
       </div>
@@ -154,9 +160,19 @@
     <h2>Tech stack</h2>
     <div class="card card-lav" style="padding:30px;">
       <div class="stack-tags">
-        <span>Spring Boot</span><span>Thymeleaf</span><span>Flutter</span><span>Node.js / Express</span>
-        <span>MongoDB Atlas</span><span>Arduino</span><span>Django</span><span>Python</span>
-        <span>Stripe</span><span>Git &amp; GitHub</span><span>Enterprise Architect</span><span>JIRA</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="" class="tag-logo">Spring Boot</span>
+        <span>🍃 Thymeleaf</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="" class="tag-logo">Flutter</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="" class="tag-logo">Node.js</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="" class="tag-logo">Express</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="" class="tag-logo">MongoDB Atlas</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="" class="tag-logo">Arduino</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="" class="tag-logo">Django</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" class="tag-logo">Python</span>
+        <span><img src="https://cdn.simpleicons.org/stripe/635BFF" alt="" class="tag-logo">Stripe</span>
+        <span><img src="https://cdn.simpleicons.org/git/F05032" alt="" class="tag-logo">Git</span>
+        <span><img src="https://cdn.simpleicons.org/github/181717" alt="" class="tag-logo">GitHub</span>
+        <span><img src="https://cdn.simpleicons.org/jira/0052CC" alt="" class="tag-logo">JIRA</span>
       </div>
     </div>
   </div>
