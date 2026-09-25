@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkmate.AI — Case Study | Muna Afifah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="blob blob-mint"></div>
+<div class="blob blob-lav"></div>
+<div class="blob blob-peach"></div>
+
+<nav>
+  <div class="nav-pill wrap">
+    <div class="nav-brand">Muna Afifah</div>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+    </div>
+    <a href="index.html#contact" class="btn btn-dark nav-cta">Contact</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html#about">About</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="cs-hero">
+  <div class="wrap">
+    <a href="index.html#projects" class="cs-back">&larr; Back to projects</a>
+    <div class="cs-tagline">Case Study &middot; AI &amp; Career Tech</div>
+    <h1 class="cs-title">Checkmate.AI: turning a resume and a job description into the interview you should actually prepare for.</h1>
+    <p class="cs-lede">An interview-prep tool that pairs an embedding-based ML scoring service with LLM generation. It measures how well a resume fits a target role, surfaces the gaps, and generates tailored questions &mdash; technical questions on weak areas, behavioral questions on strengths.</p>
+    <div class="cs-cta-row">
+      <span class="btn btn-dark" aria-disabled="true" style="opacity:0.55; cursor:default;">🚧 Live Demo &mdash; Coming Soon</span>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section compact">
+  <div class="wrap">
+    <h2>The problem</h2>
+    <div class="cs-two-col">
+      <div class="card card-cream cs-list">
+        <h3>What was missing</h3>
+        <ul>
+          <li>Generic interview-question lists don't reflect the specific gaps between a candidate's resume and the role they're applying for.</li>
+          <li>Asking an LLM alone to "rate my fit" produces a guess, not a measurement &mdash; the score can change from one run to the next.</li>
+          <li>Job seekers need to know <em>which</em> requirements they're weak on, not just a single number.</li>
+        </ul>
+      </div>
+      <div class="card card-mint cs-list">
+        <h3>What Checkmate.AI does</h3>
+        <ul>
+          <li>Accepts a resume as a PDF upload or pasted text, alongside a target job description.</li>
+          <li>Computes a 0&ndash;100 fit score and lists matched and missing requirements, each backed by the closest line in the resume.</li>
+          <li>Generates 5 technical questions on the gap areas and 5 behavioral questions on the strengths.</li>
+          <li>Grounds the LLM in the computed score, so the summary and questions follow real analysis instead of the model's own guess.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section compact">
+  <div class="wrap">
+    <h2>Architecture</h2>
+    <div class="cs-two-col">
+      <div class="card card-lav" style="padding:30px 20px;">
+        <div class="arch-diagram">
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">React Frontend (Vite)</div>
+              <div class="arch-sub">Resume &amp; JD form, fit score and results</div>
+            </div>
+          </div>
+          <div class="arch-connector"><span class="connector-label">REST (JSON / multipart)</span></div>
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">Spring Boot Backend</div>
+              <div class="arch-sub">PDF parsing (PDFBox) &amp; orchestration</div>
+            </div>
+          </div>
+          <div class="arch-connector"><span class="connector-label">POST /score</span></div>
+          <div class="arch-node">
+            <div class="arch-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt=""></div>
+            <div class="arch-text">
+              <div class="arch-label">FastAPI ML Service</div>
+              <div class="arch-sub">sentence-transformers fit scoring</div>
+            </div>
+          </div>
+          <div class="arch-connector"><span class="connector-label">score fed into prompt</span></div>
+          <div class="arch-node">
+            <div class="arch-icon">🤖</div>
+            <div class="arch-text">
+              <div class="arch-label">Groq LLM API</div>
+              <div class="arch-sub">Fit summary &amp; interview questions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-peach cs-list">
+        <h3>Why this shape</h3>
+        <ul>
+          <li>The ML scoring runs as a separate Python service, where the embedding ecosystem lives, while Spring Boot stays the single entry point for the frontend.</li>
+          <li>The backend scores first, then passes the result into the LLM prompt as ground truth &mdash; the LLM explains and generates, it doesn't decide the score.</li>
+          <li>If the ML service is unreachable, the backend degrades gracefully to LLM-only analysis instead of failing the request.</li>
+          <li>The LLM is asked for strict JSON output, with an automatic retry if the response can't be parsed.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section compact">
+  <div class="wrap">
+    <h2>How the scoring works</h2>
+    <div class="rule-grid">
+      <div class="card card-mint rule-card">
+        <h3>Split into lines</h3>
+        <p>Resumes and job descriptions are mostly bullet points, so both are split by line. Each JD line becomes a requirement; each resume line becomes potential evidence.</p>
+      </div>
+      <div class="card card-sky rule-card">
+        <h3>Embed &amp; compare</h3>
+        <p>Every line is embedded with the all-MiniLM-L6-v2 model, and each requirement is compared against every resume line using cosine similarity.</p>
+      </div>
+      <div class="card card-butter rule-card">
+        <h3>Match or gap</h3>
+        <p>Requirements whose best match clears the threshold are marked as matched; the rest become gaps. The overall score is the average best-match similarity, scaled to 0&ndash;100.</p>
+      </div>
+      <div class="card card-blush rule-card">
+        <h3>Grounded generation</h3>
+        <p>The score, matched requirements, and gaps are sent to the LLM, which writes the fit summary and targets its questions at those exact areas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section compact">
+  <div class="wrap">
+    <h2>What's next</h2>
+    <div class="cs-two-col">
+      <div class="card card-cream cs-list">
+        <h3>Mock interview mode</h3>
+        <ul>
+          <li>The LLM plays the interviewer, asks a question, and gives feedback on the user's answer.</li>
+          <li>Support for both typed and spoken answers.</li>
+        </ul>
+      </div>
+      <div class="card card-sky cs-list">
+        <h3>Progress over time</h3>
+        <ul>
+          <li>Track weak areas across multiple practice sessions.</li>
+          <li>Deploy the full stack so the tool can be tried live.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section compact">
+  <div class="wrap">
+    <h2>Tech stack</h2>
+    <div class="card card-lav" style="padding:26px;">
+      <div class="stack-tags">
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="" class="tag-logo">React</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" alt="" class="tag-logo">Vite</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="" class="tag-logo">Spring Boot</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" class="tag-logo">Java</span>
+        <span>📄 Apache PDFBox</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="" class="tag-logo">FastAPI</span>
+        <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" class="tag-logo">Python</span>
+        <span><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="" class="tag-logo">sentence-transformers</span>
+        <span>🤖 Groq API</span>
+        <span><img src="https://cdn.simpleicons.org/git/F05032" alt="" class="tag-logo">Git</span>
+        <span><img src="https://cdn.simpleicons.org/github/181717" alt="" class="tag-logo">GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="card card-butter contact-card">
+      <div class="section-label" style="justify-content:center; display:flex;">Next</div>
+      <h2>Curious about the rest?</h2>
+      <p class="lede">See more projects or get in touch directly.</p>
+      <div class="contact-links">
+        <a href="index.html#projects" class="btn btn-dark">Back to Projects</a>
+        <a href="mailto:munaafifah@graduate.utm.my" class="btn btn-outline">munaafifah@graduate.utm.my</a>
+      </div>
+    </div>
+    <div class="foot-note">&copy; 2026 Muna Afifah Binti Mahathir &mdash; Selangor, Malaysia</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
